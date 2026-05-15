@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Libro de Cuentos Interactivo</title>
+    <!-- Vinculamos nuestra hoja de estilos -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="book-wrapper">
+        <!-- Contenedor con apariencia de libro -->
+        <div class="book-container" id="book">
+            <!-- Capa que se animará al cambiar de página -->
+            <div class="page-content" id="page-content">
+                <h1 id="page-title">Cargando...</h1>
+                <div class="image-container">
+                    <img id="page-image" src="" alt="Ilustración del cuento">
+                </div>
+                <p id="page-text"></p>
+            </div>
+        </div>
+
+        <!-- Controles de navegación inferiores -->
+        <div class="controls">
+            <button id="prev-btn" disabled>&#8592; Anterior</button>
+            <span id="page-indicator">Página 1</span>
+            <button id="next-btn">Siguiente &#8594;</button>
+        </div>
+    </div>
+
+    <!-- Vinculamos nuestro script -->
+    <script src="script.js"></script>
+</body>
+</html>

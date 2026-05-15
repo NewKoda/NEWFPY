@@ -1,0 +1,151 @@
+/* Importamos fuentes tipográficas para darle estilo de libro */
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Lora', serif;
+    background-color: #eaddcf; /* Color fondo pergamino suave */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    color: #333;
+}
+
+.book-wrapper {
+    max-width: 700px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Diseño del libro */
+.book-container {
+    background-color: #fffaf0;
+    border-radius: 5px 20px 20px 5px; 
+    box-shadow: -5px 0 15px rgba(0,0,0,0.1), 10px 15px 30px rgba(0,0,0,0.15);
+    overflow: hidden;
+    position: relative;
+    min-height: 550px;
+    border-left: 18px solid #8b5a2b; /* Simula el lomo del libro de cuero */
+}
+
+/* Contenedor del contenido con propiedades de transición */
+.page-content {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* Estados de animación controlados por JS */
+.page-content.fade-out {
+    opacity: 0;
+    transform: scale(0.98) translateX(-15px);
+}
+
+.page-content.fade-in {
+    opacity: 1;
+    transform: scale(1) translateX(0);
+}
+
+#page-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    color: #2c1e16;
+    margin-bottom: 20px;
+}
+
+.image-container {
+    width: 100%;
+    max-width: 450px;
+    margin-bottom: 25px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+#page-image {
+    width: 100%;
+    height: 250px;
+    display: block;
+    object-fit: cover; /* Evita que la imagen se deforme */
+}
+
+#page-text {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    text-align: justify;
+    color: #4a4a4a;
+}
+
+/* Panel de controles */
+.controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fffaf0;
+    padding: 15px 25px;
+    border-radius: 30px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+button {
+    background-color: #8b5a2b;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-family: inherit;
+    font-size: 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover:not(:disabled) {
+    background-color: #6b4421;
+    transform: translateY(-2px);
+}
+
+button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+#page-indicator {
+    font-weight: bold;
+    color: #666;
+}
+
+/* Diseño Responsive (Celulares) */
+@media (max-width: 600px) {
+    .book-container {
+        min-height: 450px;
+        border-left-width: 10px;
+    }
+    .page-content {
+        padding: 20px;
+    }
+    #page-title {
+        font-size: 1.6rem;
+    }
+    #page-text {
+        font-size: 1rem;
+    }
+    .controls {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .controls button {
+        width: 100%;
+    }
+}
