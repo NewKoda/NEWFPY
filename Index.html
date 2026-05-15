@@ -3,33 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Libro de Cuentos Interactivo</title>
-    <!-- Vinculamos nuestra hoja de estilos -->
+    <title>Historia de Apoyo</title>
+    <!-- Fuentes suaves y redondeadas -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="book-wrapper">
-        <!-- Contenedor con apariencia de libro -->
-        <div class="book-container" id="book">
-            <!-- Capa que se animará al cambiar de página -->
+    <div class="pastel-wrapper">
+        
+        <!-- Barra de progreso suave -->
+        <div class="progress-track">
+            <div class="progress-fill" id="progress-bar"></div>
+        </div>
+
+        <!-- Contenedor principal estilo tarjeta anime -->
+        <div class="pastel-panel" id="book">
             <div class="page-content" id="page-content">
-                <h1 id="page-title">Cargando...</h1>
-                <div class="image-container">
-                    <img id="page-image" src="" alt="Ilustración del cuento">
+                <h1 id="page-title" class="title-text">Cargando tu historia...</h1>
+                
+                <div class="image-frame">
+                    <img id="page-image" src="" alt="Ilustración de apoyo">
                 </div>
-                <p id="page-text"></p>
+                
+                <p id="page-text" class="body-text"></p>
             </div>
         </div>
 
-        <!-- Controles de navegación inferiores -->
+        <!-- Controles de navegación redondeados -->
         <div class="controls">
-            <button id="prev-btn" disabled>&#8592; Anterior</button>
-            <span id="page-indicator">Página 1</span>
-            <button id="next-btn">Siguiente &#8594;</button>
+            <button id="prev-btn" class="pastel-btn" disabled>&#8592; Atrás</button>
+            <button id="autoplay-btn" class="pastel-btn-action">Lectura Automática</button>
+            <button id="next-btn" class="pastel-btn">Siguiente &#8594;</button>
         </div>
+        
+        <div class="status-indicator" id="page-indicator">Página 1 / 4</div>
     </div>
 
-    <!-- Vinculamos nuestro script -->
     <script src="script.js"></script>
 </body>
 </html>

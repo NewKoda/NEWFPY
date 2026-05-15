@@ -1,85 +1,143 @@
-// Base de datos de nuestro cuento (Array de páginas)
+// Historia de apoyo con temática suave y reconfortante
 const storyPages = [
     {
-        title: "El Bosque Susurrante",
-        image: "https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        text: "Había una vez un bosque antiguo donde los árboles parecían murmurar secretos al viento. Se decía que quien escuchara con atención, podría encontrar el camino hacia una ciudad oculta."
+        title: "Quien eres Tú?",
+        image: "M1.jpeg", // Imagen de una niña sonriente
+        text: "Mariana era una niña llena de sueños, talento y muchas cualidades que la hacían única. Estaba a punto de terminar el colegio, un logro muy importante que demostraba todo su esfuerzo, dedicación e inteligencia. Le apasionaban muchas cosas: la velocidad de la Fórmula 1, la emoción del volleyball, los videojuegos y la lectura de libros un poco extraños, pero fascinantes para ella. Cada una de sus aficiones mostraba una parte especial de quién era Mariana: curiosa, divertida, inteligente y llena de energía. Aunque muchas personas la veían sonriendo, pocos sabían todo lo que había tenido que enfrentar para llegar hasta allí."
     },
     {
-        title: "El Encuentro",
-        image: "https://images.unsplash.com/photo-1534067783941-51c9c23ecefd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        text: "Una tarde, la joven Elara se aventuró más allá del sendero marcado. Allí, posado sobre una roca cubierta de musgo, encontró a un zorro con pelaje del color del fuego y ojos que brillaban con inteligencia."
+        title: "Esto eres tu",
+        image: "M3.jpeg",
+        text: "A lo largo de su vida, Mariana tuvo que enfrentar problemas de muchos tipos. Algunas veces sintió miedo, tristeza o cansancio, como cualquier persona. Había días difíciles donde parecía más fácil rendirse o quedarse llorando por todo lo que estaba pasando.Pero Mariana tenía algo especial dentro de ella: valentía. En lugar de quedarse atrapada en los problemas, siempre intentaba levantarse otra vez. Aunque el dolor estuviera presente, ella seguía adelante sin querer convertirse en una carga para los demás. Eso era lo más admirable de Mariana: incluso en sus momentos más difíciles, nunca dejaba de luchar."
     },
     {
-        title: "El Pacto Mágico",
-        image: "https://images.unsplash.com/photo-1490243248048-51f923c55135?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        text: "El zorro habló con voz clara y cristalina: 'Te guiaré, pero a cambio debes prometerme que nunca revelarás la ubicación de este lugar'. Elara asintió, sellando un pacto que cambiaría su vida para siempre."
+        title: "No estas sola",
+        image: "M4.jpeg",
+        text: "Mariana nunca estuvo completamente sola. A su lado siempre estuvieron personas importantes que la ayudaron a seguir brillando: su mami y sus amigos. Ellos estuvieron ahí para escucharla, apoyarla y recordarle lo fuerte que realmente era cuando ella misma lo olvidaba. Gracias a ese cariño y apoyo, Mariana encontraba fuerzas para continuar cada vez que la vida se complicaba. Poco a poco, cada obstáculo se convertía en una enseñanza, y cada caída en una oportunidad para crecer. Porque aunque Mariana tuviera cicatrices, también tenía una luz enorme dentro de ella."
     },
     {
-        title: "La Ciudad de Cristal",
-        image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        text: "Tras días de viaje, la espesura se abrió revelando torres brillantes que refractaban la luz del amanecer. Habían llegado. La gran aventura de Elara apenas comenzaba."
+        title: "Un Nuevo Amanecer",
+        image: "M2.jpeg",
+        text: "Esta es la historia de Mariana: una niña que pelea sus batallas en silencio, pero que nunca se rinde.Una niña que aprende, cae, se levanta y sigue avanzando con valentía hacia sus sueños. Una niña inteligente, fuerte y llena de vida que demuestra que el verdadero éxito no es no tener problemas, sino tener el coraje de enfrentarlos y seguir adelante. Y aunque el camino no siempre sea fácil, Mariana siempre encuentra la manera de volver a brillar.Porque algunas personas nacen para rendirse… pero Mariana nació para luchar y terminar ganando. "
+    },
+    // --- NUEVA PÁGINA FINAL: LA ROSA ---
+    {
+        title: "Para Ti",
+        image: "https://images.unsplash.com/photo-1562690868-60bbe7293e94?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", // Imagen de una rosa suave
+        text: "Has llegado al final de este pequeño viaje. Recuerda que, al igual que esta rosa, tienes la capacidad de florecer incluso después de las temporadas más frías. Gracias por tu valentía. Todo mejorará.ATT Tu padre bonito :v"
     }
 ];
 
 // Variables de estado
 let currentPageIndex = 0;
+let isAutoplayOn = false;
+let autoplayTimer = null;
 
-// Referencias a los elementos del DOM
+// Referencias al DOM
 const titleElement = document.getElementById('page-title');
 const imageElement = document.getElementById('page-image');
 const textElement = document.getElementById('page-text');
 const contentContainer = document.getElementById('page-content');
 const prevBtn = document.getElementById('prev-btn');
 const nextBtn = document.getElementById('next-btn');
+const autoplayBtn = document.getElementById('autoplay-btn');
 const indicator = document.getElementById('page-indicator');
+const progressBar = document.getElementById('progress-bar');
 
-// Función principal para cargar una página con animación
+// Función para actualizar la UI
 function loadPage(index) {
-    // 1. Iniciar animación de salida
     contentContainer.classList.remove('fade-in');
     contentContainer.classList.add('fade-out');
 
-    // 2. Esperar a que termine la animación para cambiar los datos (400ms = tiempo en CSS)
     setTimeout(() => {
         const page = storyPages[index];
         
-        // Inyectar el nuevo contenido
         titleElement.textContent = page.title;
         imageElement.src = page.image;
-        imageElement.alt = `Ilustración de: ${page.title}`;
         textElement.textContent = page.text;
         
-        // Actualizar el estado de la UI
         indicator.textContent = `Página ${index + 1} de ${storyPages.length}`;
-        prevBtn.disabled = index === 0;
-        nextBtn.disabled = index === storyPages.length - 1;
+        const progressPercentage = (index / (storyPages.length - 1)) * 100;
+        progressBar.style.width = `${progressPercentage}%`;
 
-        // 3. Iniciar animación de entrada con el nuevo contenido
+        // Lógica del botón "Anterior"
+        prevBtn.disabled = index === 0;
+
+        // Lógica especial para el botón "Siguiente" en la última página
+        if (index === storyPages.length - 1) {
+            nextBtn.textContent = "Volver al Inicio ↺";
+        } else {
+            nextBtn.innerHTML = "Siguiente &#8594;";
+        }
+
         contentContainer.classList.remove('fade-out');
         contentContainer.classList.add('fade-in');
-    }, 400); 
+        
+        // Detener autoplay al llegar al final
+        if (isAutoplayOn && index === storyPages.length - 1) {
+            toggleAutoplay();
+        }
+    }, 500); 
 }
 
-// Event Listeners para los botones de navegación
-prevBtn.addEventListener('click', () => {
+function nextPage() {
+    if (currentPageIndex < storyPages.length - 1) {
+        currentPageIndex++;
+        loadPage(currentPageIndex);
+    } else {
+        // Si estamos en la última página y hacemos clic, volvemos al inicio
+        currentPageIndex = 0;
+        loadPage(currentPageIndex);
+    }
+}
+
+function prevPage() {
     if (currentPageIndex > 0) {
         currentPageIndex--;
         loadPage(currentPageIndex);
     }
+}
+
+function toggleAutoplay() {
+    isAutoplayOn = !isAutoplayOn;
+    
+    if (isAutoplayOn) {
+        autoplayBtn.textContent = "Pausar Lectura";
+        autoplayBtn.classList.add('active');
+        autoplayTimer = setInterval(nextPage, 6000); 
+    } else {
+        autoplayBtn.textContent = "Lectura Automática";
+        autoplayBtn.classList.remove('active');
+        clearInterval(autoplayTimer);
+    }
+}
+
+// Event Listeners
+prevBtn.addEventListener('click', () => {
+    prevPage();
+    if(isAutoplayOn) toggleAutoplay();
 });
 
 nextBtn.addEventListener('click', () => {
-    if (currentPageIndex < storyPages.length - 1) {
-        currentPageIndex++;
-        loadPage(currentPageIndex);
+    nextPage();
+    if(isAutoplayOn) toggleAutoplay();
+});
+
+autoplayBtn.addEventListener('click', toggleAutoplay);
+
+window.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowRight') {
+        nextPage();
+        if(isAutoplayOn) toggleAutoplay();
+    } else if (event.key === 'ArrowLeft') {
+        prevPage();
+        if(isAutoplayOn) toggleAutoplay();
     }
 });
 
-// Inicializar la aplicación cuando el DOM esté listo
+// Inicialización
 window.addEventListener('DOMContentLoaded', () => {
-    // Forzamos un pequeño retraso inicial para que la primera animación fluya bien
     setTimeout(() => {
         loadPage(currentPageIndex);
-    }, 100);
+    }, 150);
 });
